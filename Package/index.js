@@ -1,6 +1,6 @@
-const { avatarCompressor } = require("./AvatarCompressor");
+const { avatarsGenerator } = require("./AvatarsGenerator");
 const { eventDetails, downloadImage, uploadImage } = require("./Utils");
-const { createPictureObject } = require("./PictureObjectCreator");
+const { createPictureObject } = require("./PictureObjectGenerator");
 const { updateUserObject } = require("./UserObjectUpdator");
 
 exports.handler = async event => {
@@ -11,8 +11,8 @@ exports.handler = async event => {
     sourceBucket,
     sourceKey,
     destinationBucket,
-    destinationKey,
-    region,
+    largeAvatarDestinationKey,
+    smallAvatarDestinationKey,
     userId
   } = eventDetails(event);
 
@@ -23,10 +23,21 @@ exports.handler = async event => {
     const avatar = await downloadImage(sourceKey, sourceBucket);
 
     //Compress the avatar image to a smaller size
-    const compressedAvatar = await avatarCompressor(avatar);
+    const avatars = await avatarsGenerator(avatar);
+    const largeAvatar = avatars.largeAvatar;
+    const smallAvatar = avatars.smallAvatar;
 
-    //Upload the avatar
-    await uploadImage(compressedAvatar, destinationKey, destinationBucket);
+    //Upload the avatars
+    await uploadImage(
+      largeAvatar,
+      largeAvatarDestinationKey,
+      destinationBucket
+    );
+    await uploadImage(
+      smallAvatar,
+      smallAvatarDestinationKey,
+      destinationBucket
+    );
 
     console.log(
       "Uploaded the compressed avatar to Storage! Creating Picture object.."
@@ -36,16 +47,16 @@ exports.handler = async event => {
     const pictureObject = await createPictureObject(
       destinationKey,
       destinationBucket,
-      region
+      userId
     );
 
-    //Get pictureObject id
-    const pictureObjectId = pictureObject.id;
+    // //Get pictureObject id
+    // const pictureObjectId = pictureObject.id;
 
-    console.log("Created Picture object! Updating User object...");
+    // console.log("Created Picture object! Updating User object...");
 
-    //Update the user
-    await updateUserObject(userId, pictureObjectId);
+    // //Update the user
+    // await updateUserObject(userId, pictureObjectId);
 
     console.log("DONE ALL!");
   } catch (error) {

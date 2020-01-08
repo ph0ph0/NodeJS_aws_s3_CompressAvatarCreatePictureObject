@@ -11,11 +11,12 @@ module.exports.eventDetails = event => {
   const lastFullStop = fileName.lastIndexOf(".");
   const userId = fileName.substring(0, lastFullStop + 1);
   const destinationBucket = sourceBucket;
-  const destinationKey = "public/userAvatars/" + fileName;
+  const largeAvatarDestinationKey = "public/userAvatars-large-40x40/" + fileName;
+  const smallAvatarDestinationKey = "public/userAvatars-small-40x40/" + fileName;
 
   //Prevent Recursion: Ensure lambda only triggered on initial upload
-  if (sourceKey.includes("thumbnails")) {
-    const error = new Error("Preventing recursion on uploaded thumbnail");
+  if (sourceKey.includes("large")) {
+    const error = new Error("Preventing recursion on uploaded avatar");
     context.done(error, null);
     throw error;
   }
@@ -24,7 +25,8 @@ module.exports.eventDetails = event => {
     sourceBucket: sourceBucket,
     sourceKey: sourceKey,
     destinationBucket: destinationBucket,
-    destinationKey: destinationKey,
+    largeAvatarDestinationKey: largeAvatarDestinationKey,
+    smallAvatarDestinationKey: smallAvatarDestinationKey
     userId: userId
   };
 };
