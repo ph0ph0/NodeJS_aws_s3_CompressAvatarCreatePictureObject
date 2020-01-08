@@ -3,16 +3,20 @@ const sharp = require("sharp");
 const s3 = new AWS.S3();
 
 module.exports.eventDetails = event => {
+  console.log("Getting event details...");
   const sourceBucket = event.Records[0].s3.bucket.name;
   const sourceKey = event.Records[0].s3.object.key;
   const lastSlash = sourceKey.lastIndexOf("/");
   const fileName = sourceKey.substring(lastSlash + 1);
   //GET USERID FROM UPLOAD
   const lastFullStop = fileName.lastIndexOf(".");
-  const userId = fileName.substring(0, lastFullStop + 1);
+  const userId = fileName.substring(0, lastFullStop);
+  console.log(`Got userId!: ${userId}`);
   const destinationBucket = sourceBucket;
-  const largeAvatarDestinationKey = "public/userAvatars-large-40x40/" + fileName;
-  const smallAvatarDestinationKey = "public/userAvatars-small-40x40/" + fileName;
+  const largeAvatarDestinationKey =
+    "public/userAvatars-large-40x40/" + fileName;
+  const smallAvatarDestinationKey =
+    "public/userAvatars-small-40x40/" + fileName;
 
   //Prevent Recursion: Ensure lambda only triggered on initial upload
   if (sourceKey.includes("large")) {
@@ -21,12 +25,14 @@ module.exports.eventDetails = event => {
     throw error;
   }
 
+  console.log("Got event details!");
+
   return {
     sourceBucket: sourceBucket,
     sourceKey: sourceKey,
     destinationBucket: destinationBucket,
     largeAvatarDestinationKey: largeAvatarDestinationKey,
-    smallAvatarDestinationKey: smallAvatarDestinationKey
+    smallAvatarDestinationKey: smallAvatarDestinationKey,
     userId: userId
   };
 };

@@ -1,6 +1,6 @@
 const { avatarsGenerator } = require("./AvatarsGenerator");
 const { eventDetails, downloadImage, uploadImage } = require("./Utils");
-const { createPictureObject } = require("./PictureObjectGenerator");
+const { pictureObjectGenerator } = require("./PictureObjectGenerator");
 const { updateUserObject } = require("./UserObjectUpdator");
 
 exports.handler = async event => {
@@ -40,23 +40,23 @@ exports.handler = async event => {
     );
 
     console.log(
-      "Uploaded the compressed avatar to Storage! Creating Picture object.."
+      "Uploaded the compressed avatars to Storage! Creating Picture object.."
     );
 
     //Create picture object in dDB
-    const pictureObject = await createPictureObject(
-      destinationKey,
+    const pictureObject = await pictureObjectGenerator(
+      largeAvatarDestinationKey,
       destinationBucket,
       userId
     );
 
-    // //Get pictureObject id
-    // const pictureObjectId = pictureObject.id;
+    //The avatar picture object will have the same id as the user
+    const pictureObjectId = userId;
 
-    // console.log("Created Picture object! Updating User object...");
+    console.log("Created Picture object! Updating User object...");
 
-    // //Update the user
-    // await updateUserObject(userId, pictureObjectId);
+    //Update the user object with the userAvatarId so that the avatar is bound to the user
+    await updateUserObject(userId, pictureObjectId);
 
     console.log("DONE ALL!");
   } catch (error) {
