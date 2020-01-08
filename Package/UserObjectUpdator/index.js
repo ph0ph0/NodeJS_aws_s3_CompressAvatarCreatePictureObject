@@ -11,7 +11,7 @@ module.exports.updateUserObject = async (userId, pictureObjectId) => {
     },
     UpdateExpression: "SET userAvatarId = :pictureObjectId",
     ExpressionAttributeValues: {
-      ":pictureObjectId": { S: pictureObjectId }
+      ":pictureObjectId": pictureObjectId
     },
     ReturnValues: "UPDATED_NEW"
   };
