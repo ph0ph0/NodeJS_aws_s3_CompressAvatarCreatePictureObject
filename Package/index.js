@@ -1,3 +1,8 @@
+//This Lambda is called when a user signs up or changes their profile information.
+//Each user has an avatar property on the User object, which is their display picture.
+//When the avatar is uploaded to S3, this Lambda creates two compressed versions,
+//and then binds the larger of the two (40x40) to the User object, allowing it
+//to be retrieved.
 const { avatarsGenerator } = require("./AvatarsGenerator");
 const { eventDetails, downloadImage, uploadImage } = require("./Utils");
 const { pictureObjectGenerator } = require("./PictureObjectGenerator");
