@@ -16,7 +16,7 @@ module.exports.eventDetails = event => {
   const largeAvatarDestinationKey =
     "public/userAvatars-large-40x40/" + fileName;
   const smallAvatarDestinationKey =
-    "public/userAvatars-small-40x40/" + fileName;
+    "public/userAvatars-small-23x23/" + fileName;
 
   //Prevent Recursion: Ensure lambda only triggered on initial upload
   if (sourceKey.includes("large")) {
