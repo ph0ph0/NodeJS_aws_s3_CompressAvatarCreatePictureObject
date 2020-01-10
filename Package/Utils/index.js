@@ -13,10 +13,15 @@ module.exports.eventDetails = event => {
   const userId = fileName.substring(0, lastFullStop);
   console.log(`Got userId!: ${userId}`);
   const destinationBucket = sourceBucket;
+  //NOTE that we have to prepend public to the file path, as AWS Amplify Storage in React
+  //automatically saves everything under public folder
+  const publicFolder = "public/";
   const largeAvatarDestinationKey =
-    "public/userAvatars-large-40x40/" + fileName;
+    publicFolder + "userAvatars-large-40x40/" + fileName;
   const smallAvatarDestinationKey =
-    "public/userAvatars-small-23x23/" + fileName;
+    publicFolder + "userAvatars-small-23x23/" + fileName;
+
+  console.log("sourceBucket: " + sourceBucket + " sourceKey: " + sourceKey);
 
   //Prevent Recursion: Ensure lambda only triggered on initial upload
   if (sourceKey.includes("large")) {

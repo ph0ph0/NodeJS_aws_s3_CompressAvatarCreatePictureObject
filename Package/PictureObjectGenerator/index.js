@@ -8,6 +8,8 @@ module.exports.pictureObjectGenerator = async (
 ) => {
   console.log("Attempting to save picture object...");
 
+  const avatarKey = 
+
   const putParams = {
     TableName: "Picture-or2wpavvmbatbhfn7vwoynk4c4-dev",
     Item: {

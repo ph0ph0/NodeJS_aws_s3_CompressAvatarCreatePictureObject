@@ -59,6 +59,7 @@ exports.handler = async event => {
     const pictureObjectId = userId;
 
     console.log("Created Picture object! Updating User object...");
+    console.log("pictureObjectID " + pictureObjectId + " , userId " + userId);
 
     //Update the user object with the userAvatarId so that the avatar is bound to the user
     await updateUserObject(userId, pictureObjectId);
