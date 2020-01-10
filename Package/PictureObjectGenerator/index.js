@@ -8,13 +8,13 @@ module.exports.pictureObjectGenerator = async (
 ) => {
   console.log("Attempting to save picture object...");
 
-  const avatarKey = 
+  const avatarKey = largeAvatarKey.replace("public/", "");
 
   const putParams = {
     TableName: "Picture-or2wpavvmbatbhfn7vwoynk4c4-dev",
     Item: {
       id: userId,
-      key: largeAvatarKey,
+      key: avatarKey,
       bucket: destinationBucket,
       owner: userId,
       region: "us-east-1"
