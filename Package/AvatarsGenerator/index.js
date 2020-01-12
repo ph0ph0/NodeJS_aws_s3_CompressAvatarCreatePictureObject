@@ -1,10 +1,10 @@
 const { getScaledWidthAndHeight, transform } = require("../Utils");
 
-const LARGE_AVATAR_MAX_WIDTH = 40;
-const LARGE_AVATAR_MAX_HEIGHT = 40;
+const LARGE_AVATAR_MAX_WIDTH = 200;
+const LARGE_AVATAR_MAX_HEIGHT = 200;
 
-const SMALL_AVATAR_MAX_WIDTH = 23;
-const SMALL_AVATAR_MAX_HEIGHT = 23;
+const SMALL_AVATAR_MAX_WIDTH = 150;
+const SMALL_AVATAR_MAX_HEIGHT = 150;
 
 module.exports.avatarsGenerator = async image => {
   try {
