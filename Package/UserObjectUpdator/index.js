@@ -5,7 +5,7 @@ module.exports.updateUserObject = async (userId, pictureObjectId) => {
   console.log("Updating user object...");
 
   const updateParams = {
-    TableName: "User-or2wpavvmbatbhfn7vwoynk4c4-dev",
+    TableName: "User-oyj3kq3dz5ckvnkqq3pr4iq3am-masterenv",
     Key: {
       id: userId
     },
