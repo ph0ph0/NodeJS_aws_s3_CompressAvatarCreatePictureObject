@@ -17,9 +17,9 @@ module.exports.eventDetails = event => {
   //automatically saves everything under public folder
   const publicFolder = "public/";
   const largeAvatarDestinationKey =
-    publicFolder + "userAvatars-large-40x40/" + fileName;
+    publicFolder + "userAvatars-large-200x200/" + userId;
   const smallAvatarDestinationKey =
-    publicFolder + "userAvatars-small-23x23/" + fileName;
+    publicFolder + "userAvatars-small-150x150/" + userId;
 
   console.log("sourceBucket: " + sourceBucket + " sourceKey: " + sourceKey);
 
