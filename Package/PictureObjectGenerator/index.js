@@ -11,7 +11,7 @@ module.exports.pictureObjectGenerator = async (
   const avatarKey = largeAvatarKey.replace("public/", "");
 
   const putParams = {
-    TableName: "Picture-or2wpavvmbatbhfn7vwoynk4c4-dev",
+    TableName: "Picture-oyj3kq3dz5ckvnkqq3pr4iq3am-masterenv",
     Item: {
       id: userId,
       key: avatarKey,
